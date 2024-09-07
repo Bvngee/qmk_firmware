@@ -1,6 +1,12 @@
 // Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "action_layer.h"
+#include "eeconfig.h"
+#include "keyboard.h"
 #include "keycodes.h"
+#include "oled_driver.h"
+#include "suspend.h"
 #include QMK_KEYBOARD_H
 
 enum sofle_layers {
@@ -10,11 +16,26 @@ enum sofle_layers {
     _ADJUST,
 };
 
+const char *layer_to_display_name(enum sofle_layers layer) {
+    switch (layer) {
+        case _BASE:
+            return PSTR("Base\n");
+        case _LOWER:
+            return PSTR("Lower");
+        case _RAISE:
+            return PSTR("Raise");
+        case _ADJUST:
+            return PSTR("Adjst");
+        default:
+            return PSTR("Unkwn");
+    }
+}
+
 // enum custom_keycodes {
-    // KC_PRVWD, // previous/next word (which elumate C-left/C-right)
-    // KC_NXTWD,
-    // KC_LSTRT,
-    // KC_LEND
+// KC_PRVWD, // previous/next word (which elumate C-left/C-right)
+// KC_NXTWD,
+// KC_LSTRT,
+// KC_LEND
 // };
 
 // clang-format off
@@ -78,15 +99,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_RAISE] = LAYOUT(
-  _______, _______ , _______ , _______ , _______, _______,                        _______,  _______, _______,  _______,  _______ ,_______,
-  QK_BOOT,  KC_INS,  KC_PSCR,   KC_APP,  XXXXXXX, XXXXXXX,                        KC_PGUP, _______,   KC_UP, _______, C(KC_BSPC), KC_BSPC,
-  _______, KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX, KC_CAPS,                         KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL, KC_BSPC,
+  _______,  _______,  _______,  _______,  _______,  _______,                        _______,  _______, _______,  _______,  _______ ,_______,
+  QK_BOOT,  KC_INS,  KC_PSCR,  KC_APP ,  XXXXXXX,  XXXXXXX,                        KC_PGUP, _______,   KC_UP, _______, C(KC_BSPC), KC_BSPC,
+  _______, KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX,  KC_CAPS,                         KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL, KC_BSPC,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______,         _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                          _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |QK_RBT|      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |QK_BOOT|     |QWERTY|COLEMAK|     |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -108,82 +129,67 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format off
 
+// Process any custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        // case KC_PRVWD:
-        //     if (record->event.pressed) {
-        //         if (keymap_config.swap_lctl_lgui) {
-        //             register_mods(mod_config(MOD_LALT));
-        //             register_code(KC_LEFT);
-        //         } else {
-        //             register_mods(mod_config(MOD_LCTL));
-        //             register_code(KC_LEFT);
-        //         }
-        //     } else {
-        //         if (keymap_config.swap_lctl_lgui) {
-        //             unregister_mods(mod_config(MOD_LALT));
-        //             unregister_code(KC_LEFT);
-        //         } else {
-        //             unregister_mods(mod_config(MOD_LCTL));
-        //             unregister_code(KC_LEFT);
-        //         }
-        //     }
-        //     break;
-        // case KC_NXTWD:
-        //      if (record->event.pressed) {
-        //         if (keymap_config.swap_lctl_lgui) {
-        //             register_mods(mod_config(MOD_LALT));
-        //             register_code(KC_RIGHT);
-        //         } else {
-        //             register_mods(mod_config(MOD_LCTL));
-        //             register_code(KC_RIGHT);
-        //         }
-        //     } else {
-        //         if (keymap_config.swap_lctl_lgui) {
-        //             unregister_mods(mod_config(MOD_LALT));
-        //             unregister_code(KC_RIGHT);
-        //         } else {
-        //             unregister_mods(mod_config(MOD_LCTL));
-        //             unregister_code(KC_RIGHT);
-        //         }
-        //     }
-        //     break;
-        // case KC_LSTRT:
-        //     if (record->event.pressed) {
-        //         if (keymap_config.swap_lctl_lgui) {
-        //              //CMD-arrow on Mac, but we have CTL and GUI swapped
-        //             register_mods(mod_config(MOD_LCTL));
-        //             register_code(KC_LEFT);
-        //         } else {
-        //             register_code(KC_HOME);
-        //         }
-        //     } else {
-        //         if (keymap_config.swap_lctl_lgui) {
-        //             unregister_mods(mod_config(MOD_LCTL));
-        //             unregister_code(KC_LEFT);
-        //         } else {
-        //             unregister_code(KC_HOME);
-        //         }
-        //     }
-        //     break;
-        // case KC_LEND:
-        //     if (record->event.pressed) {
-        //         if (keymap_config.swap_lctl_lgui) {
-        //             //CMD-arrow on Mac, but we have CTL and GUI swapped
-        //             register_mods(mod_config(MOD_LCTL));
-        //             register_code(KC_RIGHT);
-        //         } else {
-        //             register_code(KC_END);
-        //         }
-        //     } else {
-        //         if (keymap_config.swap_lctl_lgui) {
-        //             unregister_mods(mod_config(MOD_LCTL));
-        //             unregister_code(KC_RIGHT);
-        //         } else {
-        //             unregister_code(KC_END);
-        //         }
-        //     }
-        //     break;
-    }
+    switch (keycode) {}
     return true;
+}
+
+// Rotary encoders
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 1) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    } else if (index == 0) {
+        if (clockwise) {
+            tap_code(MS_WHLU);
+        } else {
+            tap_code(MS_WHLD);
+        }
+    }
+    return false;
+}
+
+// OLED
+bool oled_task_user(void) {
+    oled_write_P(
+        layer_to_display_name(get_highest_layer(layer_state)),
+        false
+    );
+
+    oled_write_P(PSTR("\n\n"), false);
+
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+
+    oled_set_cursor(0, oled_max_lines()-1);
+    oled_write_P("sofle", false);
+    return false;
+}
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
+
+
+void oled_render_boot(bool bootloader) {
+    oled_clear();
+    oled_set_cursor(0, 0);
+    if (bootloader) {
+        oled_write_ln_P(PSTR("Firm "), false);
+        oled_write_ln_P(PSTR("..."), false);
+    } else {
+        oled_write_ln_P(PSTR("Rbt.."), false);
+    }
+
+    oled_render_dirty(true);
+}
+
+// Shutdown tasks
+bool shutdown_user(bool jump_to_bootloader) {
+    oled_render_boot(jump_to_bootloader);
+    return false;
 }
