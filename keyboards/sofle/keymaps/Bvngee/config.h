@@ -3,9 +3,17 @@
 
 #pragma once
 
-#define TRI_LAYER_LOWER_LAYER 1
-#define TRI_LAYER_UPPER_LAYER 2
-#define TRI_LAYER_ADJUST_LAYER 3
+// Time in ms for which a dual-role key's press regisiters as a tap before becoming the hold
+#define TAPPING_TERM 200
+
+// https://docs.qmk.fm/tap_hold
+// If a dual-role key (such as enter + upper layer) is pressed, another key is tapped, and
+// the dual-role key is released ALL within the TAPPING_TERM, the dual-role key will act as
+// the layer. This way you dont have to hold the dual-role key for at least TAPPING_TERM.
+//#define PERMISSIVE_HOLD
+// If a dual-role key (such as enter + upper layer) is pressed and another key is pressed,
+// the dual-role key will immediately act as the layer.
+#define HOLD_ON_OTHER_KEY_PRESS
 
 // Uses Handedness by EEPROM
 // https://docs.qmk.fm/features/split_keyboard#handedness-by-eeprom
@@ -32,6 +40,12 @@
 #define SPLIT_LED_STATE_ENABLE
 //#define SPLIT_MODS_ENABLE
 //#define SPLIT_WPM_ENABLE
+
+// Set which layer indexes correspond with lower/upper/adjust
+// Ima stick with two layers for now
+//#define TRI_LAYER_LOWER_LAYER 1
+//#define TRI_LAYER_UPPER_LAYER 2
+//#define TRI_LAYER_ADJUST_LAYER 3
 
 
 // Not working; maybe needs other bootloader?? not sure

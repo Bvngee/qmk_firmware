@@ -6,4 +6,5 @@ CONVERT_TO = promicro_rp2040
 
 SPLIT_KEYBOARD = yes
 
-TRI_LAYER_ENABLE = yes
+# Imma stick with two layers for now
+#TRI_LAYER_ENABLE = yes
