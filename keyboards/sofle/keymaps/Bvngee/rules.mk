@@ -10,4 +10,4 @@ SPLIT_KEYBOARD = yes
 #TRI_LAYER_ENABLE = yes
 
 # Enable Key Overrides
-KEY_OVERRIDE_ENABLE = yes
+#KEY_OVERRIDE_ENABLE = yes # currently unused

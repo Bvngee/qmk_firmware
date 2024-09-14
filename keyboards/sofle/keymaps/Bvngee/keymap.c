@@ -47,12 +47,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                              KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_GRV,
   KC_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                              KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX,            KC_MUTE, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_DEL,
-               KC_LALT, KC_LGUI, KC_LCTL, KC_SPC,LT(_LOWER,KC_ENT), LT(_UPPER,KC_BSPC),OSM(MOD_LSFT), KC_TAB, KC_RGUI, KC_RALT
+               KC_LALT, KC_LGUI, KC_LCTL, KC_SPC,LT(_UPPER,KC_ENT), LT(_LOWER,KC_BSPC),OSM(MOD_LSFT), KC_TAB, KC_RGUI, KC_RALT // ?? maybe try space as a MT so _lower and shift are on opposite hands?
 ),
 [_LOWER] = LAYOUT( // keep numbers on top row on lower layer
   _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-  _______, KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR,                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
+  _______, KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR,                     KC_LPRN, KC_RPRN, KC_CIRC, KC_AMPR, KC_ASTR, KC_PIPE,
   _______, KC_UNDS, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,   _______, KC_LBRC, KC_RBRC, KC_EXLM, KC_QUES, KC_BSLS, _______,
                   _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
@@ -68,16 +68,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM,                    C(KC_LEFT),KC_PGDN,KC_PGUP,C(KC_RIGHT),XXXXXXX,KC_F12,
   QK_REBOOT,XXXXXXX,XXXXXXX, KC_INS,  KC_PSCR, KC_CAPS,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_HOME, _______,
   XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, _______,   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_END, _______,
-                  _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______
+                  _______, _______, _______, _______, _______,        _______, KC_LCTL, _______, _______, _______
 )
 };
 // clang-format off
 
 // Key Overrides
-const key_override_t *key_overrides[] = {
+// const key_override_t *key_overrides[] = {
     // Shift + Space => Tab
-    &ko_make_basic(MOD_MASK_SHIFT, KC_SPC, KC_TAB)
-};
+    // &ko_make_basic(MOD_MASK_SHIFT, KC_SPC, KC_TAB) // currently unused; see base layer
+// };
 
 // Process keylogs
 #define OLED_WIDTH_CHARS 5

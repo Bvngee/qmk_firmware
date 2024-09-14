@@ -6,6 +6,9 @@
 // Time in ms for which a dual-role key's press regisiters as a tap before becoming the hold
 #define TAPPING_TERM 200
 
+// Minimum time for double-tap to trigger repeat action (0 to disable, 120 good default)
+#define QUICK_TAP_TERM 0
+
 // https://docs.qmk.fm/tap_hold
 // If a dual-role key (such as enter + upper layer) is pressed, another key is tapped, and
 // the dual-role key is released ALL within the TAPPING_TERM, the dual-role key will act as
@@ -27,8 +30,8 @@
 #define EE_HANDS
 
 // This is just to make LSP happy; its truly enabled in rules.mk
-#undef KEY_OVERRIDE_ENABLE
-#define KEY_OVERRIDE_ENABLE
+//#undef KEY_OVERRIDE_ENABLE
+//#define KEY_OVERRIDE_ENABLE
 
 // Make rotary encoders only send their respective keycodes once per notch
 #define ENCODER_RESOLUTIONS { 4 }
