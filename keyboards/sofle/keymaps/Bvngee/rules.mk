@@ -8,3 +8,6 @@ SPLIT_KEYBOARD = yes
 
 # Imma stick with two layers for now
 #TRI_LAYER_ENABLE = yes
+
+# Enable Key Overrides
+KEY_OVERRIDE_ENABLE = yes

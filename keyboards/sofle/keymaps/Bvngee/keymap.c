@@ -3,13 +3,12 @@
 
 #include "action.h"
 #include "action_layer.h"
-#include "eeconfig.h"
 #include "keyboard.h"
 #include "keycodes.h"
+#include "keymap_us.h"
 #include "oled_driver.h"
+#include "quantum.h"
 #include "quantum_keycodes.h"
-#include "report.h"
-#include "suspend.h"
 #include QMK_KEYBOARD_H
 
 enum sofle_layers {
@@ -35,7 +34,7 @@ const char *layer_to_display_name(enum sofle_layers layer) {
 }
 
 // enum custom_keycodes {
-// KC_PRVWD, // previous/next word (which elumate C-left/C-right)
+// KC_PRVWD = SAFE_RANGE, // previous/next word (which elumate C-left/C-right)
 // KC_NXTWD,
 // KC_LSTRT,
 // KC_LEND
@@ -48,26 +47,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                              KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_GRV,
   KC_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                              KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX,            KC_MUTE, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_DEL,
-               KC_LALT, KC_LGUI, KC_LCTL, KC_SPC,LT(_LOWER,KC_ENT), LT(_UPPER,KC_BSPC),KC_LSFT, KC_RCTL, KC_RGUI, KC_RALT
-               // KC_LALT, KC_LGUI, KC_LCTL, KC_SPC,LT(_LOWER,KC_ESC),LT(_UPPER,KC_ENT),LSFT_T(KC_BSPC), KC_RCTL, KC_RGUI, KC_RALT
+               KC_LALT, KC_LGUI, KC_LCTL, KC_SPC,LT(_LOWER,KC_ENT), LT(_UPPER,KC_BSPC),OSM(MOD_LSFT), KC_TAB, KC_RGUI, KC_RALT
 ),
 [_LOWER] = LAYOUT( // keep numbers on top row on lower layer
-  // TODO: Do I want the closer number row, or do I want nicer symbols? (move all bracket types to power fingers, quote marks w/o shifting, etc)
   _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-  _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
-  _______, KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,   _______, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, _______,
+  _______, KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR,                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
+  _______, KC_UNDS, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,   _______, KC_LBRC, KC_RBRC, KC_EXLM, KC_QUES, KC_BSLS, _______,
                   _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
+// [_LOWER] = LAYOUT(
+//   _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
+//   _______, _______, KC_7,    KC_8,    KC_9,    KC_0,                        _______, _______, _______, _______, _______, _______,
+//   _______, KC_MINS, KC_4,    KC_5,    KC_6,    KC_EQL,                      _______, _______, _______, _______, _______, _______,
+//   _______, KC_UNDS, KC_1,    KC_2,    KC_3,    KC_PLUS, _______,   _______, _______, _______, _______, _______, _______, _______,
+//                   _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+// ),
 [_UPPER] = LAYOUT( // F-keys go on upper layer
   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM,                      XXXXXXX,C(KC_RIGHT),KC_UP,C(KC_RIGHT),XXXXXXX,KC_F12,
-  QK_REBOOT,XXXXXXX,XXXXXXX, KC_INS,  KC_PSCR, KC_CAPS,                     XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,KC_HOME,  _______,
-  XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, _______,   _______, XXXXXXX,C(KC_LEFT),XXXXXXX,C(KC_RIGHT),KC_END,_______,
+  QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM,                    C(KC_LEFT),KC_PGDN,KC_PGUP,C(KC_RIGHT),XXXXXXX,KC_F12,
+  QK_REBOOT,XXXXXXX,XXXXXXX, KC_INS,  KC_PSCR, KC_CAPS,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_HOME, _______,
+  XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, _______,   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_END, _______,
                   _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______
 )
 };
 // clang-format off
+
+// Key Overrides
+const key_override_t *key_overrides[] = {
+    // Shift + Space => Tab
+    &ko_make_basic(MOD_MASK_SHIFT, KC_SPC, KC_TAB)
+};
 
 // Process keylogs
 #define OLED_WIDTH_CHARS 5
@@ -78,19 +88,17 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
 
 // Process keycodes (custom keycodes go here)
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    //const uint8_t mods = get_mods() | get_oneshot_mods();
+
+    // Keylog
     if (record->event.pressed) {
         add_keylog(keycode, record);
     }
+
+    // Handle keycodes
     switch (keycode) {
-        // Shift + Space => Tab
-        case S(KC_SPC): {
-            if (record->event.pressed) {
-                tap_code(KC_TAB);
-                return false;
-            }
-        }
+        default: return true;
     }
-    return true;
 }
 
 // Rotary encoders
@@ -102,7 +110,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     } else if (index == 0) { // Right encoder
-        if (get_highest_layer(layer_state) == _UPPER) {
+        if (IS_LAYER_ON(_UPPER)) {
             if (clockwise) {
                 tap_code(KC_PGUP);
             } else {

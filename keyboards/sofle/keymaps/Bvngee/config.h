@@ -15,11 +15,20 @@
 // the dual-role key will immediately act as the layer.
 #define HOLD_ON_OTHER_KEY_PRESS
 
+// Tapping this number of times holds the key until tapped once again.
+#define ONESHOT_TAP_TOGGLE 4
+// Time (in ms) before the one shot key is released
+#define ONESHOT_TIMEOUT 2000
+
 // Uses Handedness by EEPROM
 // https://docs.qmk.fm/features/split_keyboard#handedness-by-eeprom
 // REMEMBER: whenever the bootloader/EEPROM gets reset, `-bl uf2-split-left` must
 // be used to reinitialize bootloader with the correct sides!
 #define EE_HANDS
+
+// This is just to make LSP happy; its truly enabled in rules.mk
+#undef KEY_OVERRIDE_ENABLE
+#define KEY_OVERRIDE_ENABLE
 
 // Make rotary encoders only send their respective keycodes once per notch
 #define ENCODER_RESOLUTIONS { 4 }
