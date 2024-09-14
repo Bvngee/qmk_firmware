@@ -4,7 +4,7 @@
 #pragma once
 
 // Time in ms for which a dual-role key's press regisiters as a tap before becoming the hold
-#define TAPPING_TERM 200
+#define TAPPING_TERM 180
 
 // Minimum time for double-tap to trigger repeat action (0 to disable, 120 good default)
 #define QUICK_TAP_TERM 0
