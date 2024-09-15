@@ -47,28 +47,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                              KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_GRV,
   KC_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                              KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX,            KC_MUTE, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_DEL,
-               KC_LALT, KC_LGUI, KC_LCTL, LT(_LOWER,KC_SPC),LT(_UPPER,KC_ENT), KC_BSPC,OSM(MOD_LSFT), KC_TAB, KC_RGUI, KC_RALT // ?? maybe try space as a MT so _lower and shift are on opposite hands?
+               KC_LALT, KC_LGUI, KC_LCTL, LT(_LOWER,KC_SPC),KC_ENT, LT(_UPPER, KC_BSPC),OSM(MOD_LSFT), KC_TAB, KC_RGUI, KC_RALT // ?? maybe try space as a MT so _lower and shift are on opposite hands?
 ),
-[_LOWER] = LAYOUT( // keep numbers on top row on lower layer
-  _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
-  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-  _______, KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR,                     KC_LPRN, KC_RPRN, KC_CIRC, KC_AMPR, KC_ASTR, KC_PIPE,
-  _______, KC_UNDS, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,   _______, KC_LBRC, KC_RBRC, KC_EXLM, KC_QUES, KC_BSLS, _______,
-                  _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
-),
-// [_LOWER] = LAYOUT(
+// [_LOWER] = LAYOUT( // keep numbers on top row on lower layer
 //   _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
-//   _______, _______, KC_7,    KC_8,    KC_9,    KC_0,                        _______, _______, _______, _______, _______, _______,
-//   _______, KC_MINS, KC_4,    KC_5,    KC_6,    KC_EQL,                      _______, _______, _______, _______, _______, _______,
-//   _______, KC_UNDS, KC_1,    KC_2,    KC_3,    KC_PLUS, _______,   _______, _______, _______, _______, _______, _______, _______,
+//   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
+//   _______, KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR,                     KC_LPRN, KC_RPRN, KC_CIRC, KC_AMPR, KC_ASTR, KC_PIPE,
+//   _______, KC_UNDS, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,   _______, KC_LBRC, KC_RBRC, KC_EXLM, KC_QUES, KC_BSLS, _______,
 //                   _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 // ),
+[_LOWER] = LAYOUT(
+//   _______,
+//   _______, KC_AT
+  _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
+  _______, KC_PLUS, KC_7,    KC_8,    KC_9,    KC_0,                        KC_EXLM, KC_LCBR, KC_RCBR, KC_QUES, KC_AMPR, KC_GRV,
+  _______, KC_MINS, KC_4,    KC_5,    KC_6,    KC_EQL,                      KC_CIRC, KC_LPRN, KC_RPRN, KC_DLR,  KC_ASTR, KC_PIPE,
+  _______, KC_UNDS, KC_1,    KC_2,    KC_3,    KC_HASH, _______,   _______, KC_AT,   KC_LBRC, KC_RBRC, KC_PERC, KC_BSLS, _______,
+                  _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+),
 [_UPPER] = LAYOUT( // F-keys go on upper layer
   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM,                    C(KC_LEFT),KC_PGDN,KC_PGUP,C(KC_RIGHT),XXXXXXX,KC_F12,
-  QK_REBOOT,XXXXXXX,XXXXXXX, KC_INS,  KC_PSCR, KC_CAPS,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_HOME, _______,
-  XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, _______,   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_END, _______,
-                  _______, _______, _______, _______, _______,        _______, KC_LCTL, _______, _______, _______
+  QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    C(KC_LEFT),KC_PGDN,KC_PGUP,C(KC_RIGHT),XXXXXXX,KC_F12,
+  QK_REBOOT,XXXXXXX,XXXXXXX, KC_INS,  KC_PSCR, XXXXXXX,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_HOME, _______,
+  _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, _______,   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_END, _______,
+                  _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______
 )
 };
 // clang-format off
@@ -136,12 +138,11 @@ bool oled_task_user(void) {
 
     oled_write_P(PSTR("\n\n"), false);
 
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUMLK") : PSTR("     "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CPSLK") : PSTR("     "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCRLK") : PSTR("     "), false);
-
-    oled_write_P(PSTR("\n"), false);
+    // led_t led_state = host_keyboard_led_state();
+    // oled_write_P(led_state.num_lock ? PSTR("NUMLK") : PSTR("     "), false);
+    // oled_write_P(led_state.caps_lock ? PSTR("CPSLK") : PSTR("     "), false);
+    // oled_write_P(led_state.scroll_lock ? PSTR("SCRLK") : PSTR("     "), false);
+    // oled_write_P(PSTR("\n"), false);
 
     oled_set_cursor(0, oled_max_lines()-1);
     oled_write_P(PSTR("sofle"), false);

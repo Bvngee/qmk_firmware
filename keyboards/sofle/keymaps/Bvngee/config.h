@@ -19,7 +19,7 @@
 #define HOLD_ON_OTHER_KEY_PRESS
 
 // Tapping this number of times holds the key until tapped once again.
-#define ONESHOT_TAP_TOGGLE 4
+#define ONESHOT_TAP_TOGGLE 3
 // Time (in ms) before the one shot key is released
 #define ONESHOT_TIMEOUT 2000
 
