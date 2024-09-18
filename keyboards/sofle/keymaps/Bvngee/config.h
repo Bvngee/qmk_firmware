@@ -13,10 +13,10 @@
 // If a dual-role key (such as enter + upper layer) is pressed, another key is tapped, and
 // the dual-role key is released ALL within the TAPPING_TERM, the dual-role key will act as
 // the layer. This way you dont have to hold the dual-role key for at least TAPPING_TERM.
-//#define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD
 // If a dual-role key (such as enter + upper layer) is pressed and another key is pressed,
 // the dual-role key will immediately act as the layer.
-#define HOLD_ON_OTHER_KEY_PRESS
+//#define HOLD_ON_OTHER_KEY_PRESS
 
 // Tapping this number of times holds the key until tapped once again.
 #define ONESHOT_TAP_TOGGLE 3
