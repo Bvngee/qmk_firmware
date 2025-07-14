@@ -11,3 +11,6 @@ SPLIT_KEYBOARD = yes
 
 # Enable Key Overrides
 #KEY_OVERRIDE_ENABLE = yes # currently unused
+
+# Trying to fix the on-wake/boot problem...
+CONSOLE_ENABLE = no

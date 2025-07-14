@@ -58,9 +58,3 @@
 //#define TRI_LAYER_LOWER_LAYER 1
 //#define TRI_LAYER_UPPER_LAYER 2
 //#define TRI_LAYER_ADJUST_LAYER 3
-
-
-// Not working; maybe needs other bootloader?? not sure
-/* #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior */
-/* #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur. */
-/* #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17 // Optional status led which blinks when entering the bootloader (GPIO number) */
