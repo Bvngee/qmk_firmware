@@ -12,5 +12,8 @@ SPLIT_KEYBOARD = yes
 # Enable Key Overrides
 #KEY_OVERRIDE_ENABLE = yes # currently unused
 
-# Trying to fix the on-wake/boot problem...
+# I think this fixes the on-wake/boot problem?? Ref:
+# https://docs.qmk.fm/faq_misc#problem-in-bios-uefi-setup-resume-sleep-wake-power-cycles
 CONSOLE_ENABLE = no
+NKRO_ENABLE = no
+SLEEP_LED_ENABLE = no
