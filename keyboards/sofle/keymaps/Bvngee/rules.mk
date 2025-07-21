@@ -1,4 +1,4 @@
-CONVERT_TO = promicro_rp2040
+CONVERT_TO = rp2040_ce
 # Turns out I dont think any of these are needed (?)
 #BOARD = GENERIC_PROMICRO_RP2040
 #BOOTLOADER = rp2040
